@@ -16,12 +16,12 @@
         android:gravity="center">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/img_contact"
+            android:id="@+id/img_manual"
             android:layout_width="@dimen/define_dimen_40"
             android:layout_height="@dimen/define_dimen_40" />
 
         <TextView
-            android:id="@+id/tv_contact"
+            android:id="@+id/tv_manual"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/define_dimen_5"

@@ -1,6 +1,6 @@
 package com.melodify.music.model;
 
-public class Contact {
+public class Manual {
 
     public static final int FACEBOOK = 0;
     public static final int HOTLINE = 1;
@@ -12,7 +12,7 @@ public class Contact {
     private int id;
     private int image;
 
-    public Contact(int id, int image) {
+    public Manual(int id, int image) {
         this.id = id;
         this.image = image;
     }

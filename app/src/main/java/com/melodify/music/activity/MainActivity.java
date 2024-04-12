@@ -27,7 +27,7 @@ import com.melodify.music.fragment.AdminFeedbackFragment;
 import com.melodify.music.fragment.AdminHomeFragment;
 import com.melodify.music.fragment.AllSongsFragment;
 import com.melodify.music.fragment.ChangePasswordFragment;
-import com.melodify.music.fragment.ContactFragment;
+import com.melodify.music.fragment.ManualFragment;
 import com.melodify.music.fragment.FavoriteFragment;
 import com.melodify.music.fragment.FeaturedSongsFragment;
 import com.melodify.music.fragment.FeedbackFragment;
@@ -50,7 +50,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public static final int TYPE_NEW_SONGS = 5;
     public static final int TYPE_FAVORITE_SONGS = 6;
     public static final int TYPE_FEEDBACK = 7;
-    public static final int TYPE_CONTACT = 8;
+    public static final int TYPE_MANUAL = 8;
     public static final int TYPE_CHANGE_PASSWORD = 9;
 
     private int mTypeScreen = TYPE_HOME;
@@ -120,7 +120,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mActivityMainBinding.menuLeft.tvMenuNewSongs.setOnClickListener(this);
         mActivityMainBinding.menuLeft.tvMenuFavoriteSongs.setOnClickListener(this);
         mActivityMainBinding.menuLeft.tvMenuFeedback.setOnClickListener(this);
-        mActivityMainBinding.menuLeft.tvMenuContact.setOnClickListener(this);
+        mActivityMainBinding.menuLeft.tvMenuManual.setOnClickListener(this);
         mActivityMainBinding.menuLeft.tvMenuChangePassword.setOnClickListener(this);
         mActivityMainBinding.menuLeft.tvMenuSignOut.setOnClickListener(this);
 
@@ -175,10 +175,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         displayLayoutPlayAll();
     }
 
-    private void openContactScreen() {
-        replaceFragment(new ContactFragment());
-        mTypeScreen = TYPE_CONTACT;
-        initToolbar(getString(R.string.menu_contact));
+    private void openManualScreen() {
+        replaceFragment(new ManualFragment());
+        mTypeScreen = TYPE_MANUAL;
+        initToolbar(getString(R.string.menu_manual));
         displayLayoutPlayAll();
     }
 
@@ -250,9 +250,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 openFeedbackScreen();
                 break;
 
-            case R.id.tv_menu_contact:
+            case R.id.tv_menu_manual:
                 mActivityMainBinding.drawerLayout.closeDrawer(GravityCompat.START);
-                openContactScreen();
+                openManualScreen();
                 break;
 
             case R.id.tv_menu_change_password:
