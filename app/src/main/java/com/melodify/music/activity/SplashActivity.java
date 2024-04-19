@@ -9,7 +9,6 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.melodify.music.constant.AboutUsConfig;
 import com.melodify.music.constant.GlobalFunction;
 import com.melodify.music.databinding.ActivitySplashBinding;
 import com.melodify.music.prefs.DataStoreManager;
@@ -29,16 +28,8 @@ public class SplashActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         mActivitySplashBinding = ActivitySplashBinding.inflate(getLayoutInflater());
         setContentView(mActivitySplashBinding.getRoot());
-
-        initUi();
-
         Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(this::goToNextActivity, 2000);
-    }
-
-    private void initUi() {
-        mActivitySplashBinding.tvAboutUsTitle.setText(AboutUsConfig.ABOUT_US_TITLE);
-        mActivitySplashBinding.tvAboutUsSlogan.setText(AboutUsConfig.ABOUT_US_SLOGAN);
     }
 
     private void goToNextActivity() {
