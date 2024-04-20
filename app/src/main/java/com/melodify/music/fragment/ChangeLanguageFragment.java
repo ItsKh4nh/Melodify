@@ -100,4 +100,3 @@ public class ChangeLanguageFragment extends Fragment implements View.OnClickList
         preferences.edit().putString("language", language).apply();
     }
 }
-

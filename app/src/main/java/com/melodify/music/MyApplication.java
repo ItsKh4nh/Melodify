@@ -13,9 +13,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MyApplication extends Application {
 
-    // Firebase url
     public static final String FIREBASE_URL = "https://melodify-nhom4-default-rtdb.firebaseio.com";
-
     public static final String CHANNEL_ID = "channel_music_basic_id";
     private static final String CHANNEL_NAME = "channel_music_basic_name";
     private FirebaseDatabase mFirebaseDatabase;
@@ -28,7 +26,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         FirebaseApp.initializeApp(this);
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance(FIREBASE_URL);
         mFirebaseDatabase.setPersistenceEnabled(true);
         createChannelNotification();
         DataStoreManager.init(getApplicationContext());
@@ -46,10 +44,6 @@ public class MyApplication extends Application {
 
     public DatabaseReference getSongsDatabaseReference() {
         return mFirebaseDatabase.getReference("/songs");
-    }
-
-    public DatabaseReference getFeedbackDatabaseReference() {
-        return mFirebaseDatabase.getReference("/feedback");
     }
 
     public DatabaseReference getCountViewDatabaseReference(long songId) {

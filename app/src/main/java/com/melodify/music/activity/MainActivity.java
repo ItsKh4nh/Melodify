@@ -27,14 +27,12 @@ import com.melodify.music.R;
 import com.melodify.music.constant.Constant;
 import com.melodify.music.constant.GlobalFunction;
 import com.melodify.music.databinding.ActivityMainBinding;
-import com.melodify.music.fragment.AdminFeedbackFragment;
 import com.melodify.music.fragment.AdminHomeFragment;
 import com.melodify.music.fragment.AllSongsFragment;
 import com.melodify.music.fragment.ChangeLanguageFragment;
 import com.melodify.music.fragment.ChangePasswordFragment;
 import com.melodify.music.fragment.FavoriteFragment;
 import com.melodify.music.fragment.FeaturedSongsFragment;
-import com.melodify.music.fragment.FeedbackFragment;
 import com.melodify.music.fragment.HomeFragment;
 import com.melodify.music.fragment.NewSongsFragment;
 import com.melodify.music.fragment.PopularSongsFragment;
@@ -55,10 +53,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public static final int TYPE_POPULAR_SONGS = 4;
     public static final int TYPE_NEW_SONGS = 5;
     public static final int TYPE_FAVORITE_SONGS = 6;
-    public static final int TYPE_FEEDBACK = 7;
-    public static final int TYPE_CHANGE_PASSWORD = 8;
-
-    public static final int TYPE_CHANGE_LANGUAGE = 9;
+    public static final int TYPE_CHANGE_PASSWORD = 7;
+    public static final int TYPE_CHANGE_LANGUAGE = 8;
 
     private int mTypeScreen = TYPE_HOME;
     private ActivityMainBinding mActivityMainBinding;
@@ -126,7 +122,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mActivityMainBinding.menuLeft.tvMenuPopularSongs.setOnClickListener(this);
         mActivityMainBinding.menuLeft.tvMenuNewSongs.setOnClickListener(this);
         mActivityMainBinding.menuLeft.tvMenuFavoriteSongs.setOnClickListener(this);
-        mActivityMainBinding.menuLeft.tvMenuFeedback.setOnClickListener(this);
         mActivityMainBinding.menuLeft.tvMenuChangePassword.setOnClickListener(this);
         mActivityMainBinding.menuLeft.tvMenuSignOut.setOnClickListener(this);
         mActivityMainBinding.menuLeft.tvMenuLanguage.setOnClickListener(this);
@@ -168,17 +163,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         replaceFragment(new FavoriteFragment());
         mTypeScreen = TYPE_FAVORITE_SONGS;
         initToolbar(getString(R.string.menu_favorite_songs));
-        displayLayoutPlayAll();
-    }
-
-    private void openFeedbackScreen() {
-        if (DataStoreManager.getUser().isAdmin()) {
-            replaceFragment(new AdminFeedbackFragment());
-        } else {
-            replaceFragment(new FeedbackFragment());
-        }
-        mTypeScreen = TYPE_FEEDBACK;
-        initToolbar(getString(R.string.menu_feedback));
         displayLayoutPlayAll();
     }
 
@@ -250,11 +234,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.tv_menu_favorite_songs:
                 mActivityMainBinding.drawerLayout.closeDrawer(GravityCompat.START);
                 openFavoriteSongsScreen();
-                break;
-
-            case R.id.tv_menu_feedback:
-                mActivityMainBinding.drawerLayout.closeDrawer(GravityCompat.START);
-                openFeedbackScreen();
                 break;
 
             case R.id.tv_menu_change_password:
