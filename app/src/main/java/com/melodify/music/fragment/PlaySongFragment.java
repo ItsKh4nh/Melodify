@@ -331,54 +331,34 @@ public class PlaySongFragment extends Fragment implements View.OnClickListener {
         builder.create().show();
     }
 
-    private String getUrlFromJSON(String title) {
-        String json;
-        try {
-            InputStream is = getResources().openRawResource(R.raw.melodifydata);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, StandardCharsets.UTF_8);
+    private void downloadSong() {
+        if (MusicService.mListSongPlaying != null && !MusicService.mListSongPlaying.isEmpty()) {
+            String title = MusicService.mListSongPlaying.get(MusicService.mSongPosition).getTitle();
+            String url = getUrlFromSongTitle(title);
 
-            JSONObject jsonObject = new JSONObject(json);
-            JSONArray songsArray = jsonObject.getJSONArray("songs");
-            for (int i = 0; i < songsArray.length(); i++) {
-                JSONObject songObject = songsArray.optJSONObject(i);
-                if (songObject != null) {
-                    String jsonTitle = songObject.optString("title");
-                    if (jsonTitle != null && jsonTitle.equals(title)) {
-                        return songObject.optString("url");
-                    }
+            if (url != null) {
+                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+                request.setTitle(title);
+                request.setDescription("Downloading " + title);
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, title + ".mp3");
+
+                DownloadManager downloadManager = (DownloadManager) requireActivity().getSystemService(Context.DOWNLOAD_SERVICE);
+                if (downloadManager != null) {
+                    downloadManager.enqueue(request);
                 }
             }
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
         }
-        return null;
     }
 
-
-
-    private void downloadSong() {
-        String title = MusicService.mListSongPlaying.get(MusicService.mSongPosition).getTitle();
-        String url = getUrlFromJSON(title);
-
-        if (url != null) {
-
-            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-            request.setTitle(title);
-            request.setDescription("Downloading " + title);
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, title + ".mp3");
-
-            DownloadManager downloadManager = (DownloadManager) requireActivity().getSystemService(Context.DOWNLOAD_SERVICE);
-
-            if (downloadManager != null) {
-                downloadManager.enqueue(request);
-            } else {
+    private String getUrlFromSongTitle(String title) {
+        if (MusicService.mListSongPlaying != null && !MusicService.mListSongPlaying.isEmpty()) {
+            for (Song song : MusicService.mListSongPlaying) {
+                if (song.getTitle().equals(title)) {
+                    return song.getUrl();
+                }
             }
-        } else {
         }
+        return null;
     }
 }
