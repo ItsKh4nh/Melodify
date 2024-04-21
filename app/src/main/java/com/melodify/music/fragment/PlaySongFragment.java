@@ -13,9 +13,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.SeekBar;
 import android.graphics.Bitmap;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.app.DownloadManager;
-import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
 
@@ -33,17 +31,8 @@ import com.melodify.music.service.MusicService;
 import com.melodify.music.utils.AppUtil;
 import com.melodify.music.utils.GlideUtils;
 
-import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 
 @SuppressLint("NonConstantResourceId")
 public class PlaySongFragment extends Fragment implements View.OnClickListener {
@@ -319,14 +308,8 @@ public class PlaySongFragment extends Fragment implements View.OnClickListener {
     private void showDownloadDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(R.string.download_modal)
-                .setPositiveButton(R.string.download_yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        downloadSong();
-                    }
-                })
-                .setNegativeButton(R.string.download_no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
+                .setPositiveButton(R.string.download_yes, (dialog, id) -> downloadSong())
+                .setNegativeButton(R.string.download_no, (dialog, id) -> {
                 });
         builder.create().show();
     }
